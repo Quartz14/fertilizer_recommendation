@@ -1,0 +1,8 @@
+streamlit==0.78.0
+numpy==1.16.0
+pytesseract==0.3.4
+matplotlib==3.2.1
+~pencv_python==3.4.11.43
+pandas==1.1.3
+tensorflow==1.14.0
+Pillow==8.2.0
