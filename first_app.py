@@ -26,7 +26,7 @@ def load_models():
 	input_details = interpreter.get_input_details()
 	output_details = interpreter.get_output_details()
 	
-	model = tf.keras.models.load_model('200_epoch_97_87_soft.h5')
+	model = tf.keras.models.load_model('200_epoch_97_87_soft.h5', compile=False)
 	return interpreter, model
 
 
