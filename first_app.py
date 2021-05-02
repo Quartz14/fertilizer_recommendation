@@ -21,11 +21,6 @@ import tensorflow as tf
 def load_models():
 	interpreter = tf.lite.Interpreter(model_path="plain2model.tflite")
 	interpreter.allocate_tensors()
-	
-	# Get input and output tensors.
-	input_details = interpreter.get_input_details()
-	output_details = interpreter.get_output_details()
-	
 	model = tf.keras.models.load_model('200_epoch_97_87_soft.h5', compile=False)
  
 	return interpreter, model
@@ -230,6 +225,10 @@ def nitro_rice():
     leaf_img = st.file_uploader('Upload leaf image', type=['png','jpeg','jpg'])
 
     diagnoise_button = st.button('Get diagnosis', key='diagnosis')
+# Get input and output tensors.
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
     if(diagnoise_button):
         session_state.diagnoise_button = True
 
