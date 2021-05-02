@@ -3,5 +3,5 @@ numpy==1.16.0
 pytesseract==0.3.4
 matplotlib==3.2.1
 pandas==1.1.3
-tensorflow==1.14.0
+tensorflow==2.3.0
 Pillow==8.2.0
