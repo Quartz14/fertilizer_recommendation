@@ -14,6 +14,7 @@ import SessionState
 import tensorflow as tf
 
 
+@st.cache(allow_output_mutation=True)
 interpreter = tf.lite.Interpreter(model_path="plain2model.tflite")
 interpreter.allocate_tensors()
 
@@ -22,6 +23,7 @@ input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 #model = tf.keras.models.load_model('200_epoch_96_87.h5')
+@st.cache(allow_output_mutation=True)
 model = tf.keras.models.load_model('200_epoch_97_87_soft.h5')
 class_names = ['interveinal', 'margin', 'normal', 'spotty', 'tip']
 rice_nitro_names = ['swap1','swap2','swap3','swap4']
