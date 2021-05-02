@@ -27,6 +27,8 @@ def load_models():
 	output_details = interpreter.get_output_details()
 	
 	model = tf.keras.models.load_model('200_epoch_97_87_soft.h5', compile=False)
+        model._make_predict_function()
+ 
 	return interpreter, model
 
 
