@@ -1,6 +1,9 @@
 # fertilizer_recommendation
 Help gardeners and farmers better care for their plants nutritional needs
 
+## Deployed application: 
+    https://share.streamlit.io/quartz14/fertilizer_recommendation/main/first_app.py
+
 CROPS FOCUSSED:
 * Rice
 * Wheat
