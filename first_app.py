@@ -30,7 +30,7 @@ def load_models():
 	return interpreter, model
 
 
-interpreter, model = load_model()
+interpreter, model = load_models()
 
 class_names = ['interveinal', 'margin', 'normal', 'spotty', 'tip']
 rice_nitro_names = ['swap1','swap2','swap3','swap4']
