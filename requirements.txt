@@ -5,3 +5,4 @@ matplotlib==3.2.1
 pandas==1.1.3
 tensorflow==2.3.0
 Pillow==8.2.0
+openpyxl==3.0.3
