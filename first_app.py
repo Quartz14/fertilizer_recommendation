@@ -72,9 +72,6 @@ def homepage():
     session_state.analysis = ''
     session_state.rice_nitro_analysis = ''
     session_state.deficiency = []
-    #fertilizer_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
-    #print(fertilizer_df.columns)
-    #st.dataframe(fertilizer_df)
 
 
 def schedule():
@@ -95,7 +92,7 @@ def schedule():
 
 def show_table(land_value,growth_value,crop_value, defi=0):
     # TODO: fetch rows from datafram matching criteria/calculate for particular case
-    fertilizer_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
+    fertilizer_df = pd.read_excel(r'fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
     if(defi==0):
         st.write('List of Fertilizers for different nutrient deficiencies: ')
         st.write(fertilizer_df)
