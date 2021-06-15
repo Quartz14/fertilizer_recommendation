@@ -1,5 +1,5 @@
 # fertilizer_recommendation
-Help gardeners and farmers better care for their plants nutritional needs
+Help farmers better care for their plants nutritional needs
 
 ## Deployed application: 
     https://share.streamlit.io/quartz14/fertilizer_recommendation/main/first_app.py
@@ -20,6 +20,23 @@ NUTRIENTS FOCUSSED:
 * Sulphur
 * Nitrogen deficiency levels - only for rice
 
+SCREENSHOTS
+* Few predictions of model trained to identify nutrient deficiency symptoms:
+![m1](model_results/model_pred2_200.JPG)
+![m2](model_Results/test_conf.JPG)
+Application screenshots
+* Home page 
+![a1](web_app/homepage.JPG)
+* Image upload and analysis page
+![a2](web_app/analysis_upload.JPG)
+* Results upon analysis page
+![a3](web_app/result_all.JPG)
+* Fertilizer recommendation (in progress)
+![a4](web_app/fertilizer_schedule_customised.JPG)
+
+* Some more model prediction examples (note the confusion between margin and tip class)
+![m3](model_results/model_pred3_200_tip.JPG)
+
 FILES:
 * fertilizer.xls - Excel file containing the data on fertilizers. It has 2 pages which needs to be updated with the info collected
 * first_app.py - The web application that is view by users
@@ -31,4 +48,3 @@ FILES:
 TO DO:
 * Collect info on fertilizers based on stage of crop(Ex: seedling, established, flowering, mature), type of crop (Ex: rice,wheat, maize), per acre for nutrients: 'Potassium', 'Magnesium', 'Zinc', 'Iron', 'Manganese', 'Copper', 'Boron' and 'Sulphur'
 * Add images to manual symptoms in results page to make it easier for user
-* Further updates upon discussion
