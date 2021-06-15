@@ -20,17 +20,29 @@ NUTRIENTS FOCUSSED:
 * Sulphur
 * Nitrogen deficiency levels - only for rice
 
+FLOW:
+* User can upload an image of the leaf(that begins to show some symptoms like loss of color(chlorosis), drying(necrosis))
+* The model runs on the image and classifies it into 1 of 5 symptoms ['interveinal', 'margin', 'normal', 'spotty', 'tip']
+* Uses user input on age of leaf (new/old/middle) and presence of 4 additional symptoms (not capture in leaf image), like stunted growth of entire plant.
+* Using this infomation and the research on identifying nutrient deficiencies (done by Montana State University, U.S. Department of Agriculture), the following rules are developed.
+![m0](model_results/rules.PNG)
+* These results are further used to recommend appropriate fertilizers to the farmer, helping in **avoiding overfertilization** by adding standard fertilizers recommended to crop grown and **control costs**
+
 SCREENSHOTS
 * Few predictions of model trained to identify nutrient deficiency symptoms:
 ![m1](model_results/model_pred2_200.JPG)
-![m2](model_Results/test_conf.JPG)
+![m2](model_results/test_conf.JPG)
+
 Application screenshots
 * Home page 
 ![a1](web_app/homepage.JPG)
+
 * Image upload and analysis page
 ![a2](web_app/analysis_upload.JPG)
+
 * Results upon analysis page
 ![a3](web_app/result_all.JPG)
+
 * Fertilizer recommendation (in progress)
 ![a4](web_app/fertilizer_schedule_customised.JPG)
 
