@@ -22,7 +22,7 @@ NUTRIENTS FOCUSSED:
 
 FLOW:
 * User can upload an image of the leaf(that begins to show some symptoms like loss of color(chlorosis), drying(necrosis))
-* The model runs on the image and classifies it into 1 of 5 symptoms ['interveinal', 'margin', 'normal', 'spotty', 'tip']
+* The model runs on the image and classifies it into 1 of 5 symptoms (includes a healthy/normal class).
 * Uses user input on age of leaf (new/old/middle) and presence of 4 additional symptoms (not capture in leaf image), like stunted growth of entire plant.
 * Using this infomation and the research on identifying nutrient deficiencies (done by Montana State University, U.S. Department of Agriculture), the following rules are developed.
 ![m0](model_results/rules.png)
