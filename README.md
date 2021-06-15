@@ -25,7 +25,7 @@ FLOW:
 * The model runs on the image and classifies it into 1 of 5 symptoms ['interveinal', 'margin', 'normal', 'spotty', 'tip']
 * Uses user input on age of leaf (new/old/middle) and presence of 4 additional symptoms (not capture in leaf image), like stunted growth of entire plant.
 * Using this infomation and the research on identifying nutrient deficiencies (done by Montana State University, U.S. Department of Agriculture), the following rules are developed.
-![m0](model_results/rules.PNG)
+![m0](model_results/rules.png)
 * These results are further used to recommend appropriate fertilizers to the farmer, helping in **avoiding overfertilization** by adding standard fertilizers recommended to crop grown and **control costs**
 
 SCREENSHOTS
