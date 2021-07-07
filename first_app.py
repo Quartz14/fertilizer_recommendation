@@ -85,9 +85,9 @@ def schedule():
 
 def show_table(land_value=0,growth_value='',crop_value='', defi=0):
     # TODO: fetch rows from datafram matching criteria/calculate for particular case
-    fertilizer_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
+    fertilizer_df = pd.read_excel(r'fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
 
-    schedule_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='schedule',  engine="openpyxl")
+    schedule_df = pd.read_excel(r'fertilizer.xlsx', sheet_name='schedule',  engine="openpyxl")
 
     if(defi==0):
         st.write('List of Fertilizers for different nutrient deficiencies: ')
