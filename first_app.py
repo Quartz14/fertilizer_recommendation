@@ -133,7 +133,7 @@ def health_v2():
 
     st.write('Upload image of affected leaf with white background')
     st.write('Example: ')
-    img0 = load_image('app_img_ex/maize4.JPG')
+    img0 = load_image('app_img_ex/maize4.jpg')
     st.image(img0,width=200)
     leaf_img = st.file_uploader('Upload leaf image', type=['png','jpeg','jpg'])
 
@@ -179,19 +179,19 @@ def result():
         symptoms = []
 
         session_state.stunted = col1.checkbox('stunted growth?')
-        img2 = load_image('app_img_ex/stunted_rice1.JPG')
+        img2 = load_image('app_img_ex/stunted_rice1.jpg')
         col1.image(img2,width=200)
 
         session_state.dead_spot = col1.checkbox('Red/Dead spots?')
-        img3 = load_image('app_img_ex/red_maize.PNG')
+        img3 = load_image('app_img_ex/red_maize.png')
         col1.image(img3,width=200)
 
         session_state.twisted = col3.checkbox('Twisted/Brittle leaves?')
-        img5 = load_image('app_img_ex/twisted.PNG')
+        img5 = load_image('app_img_ex/twisted.png')
         col3.image(img5,width=200)
 
         session_state.yellow = col3.checkbox('General yellowing of new leaves?')
-        img6 = load_image('app_img_ex/yellow_rice.JPG')
+        img6 = load_image('app_img_ex/yellow_rice.jpg')
         col3.image(img6,width=200)
 
         if session_state.stunted:
