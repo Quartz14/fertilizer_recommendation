@@ -4,7 +4,7 @@ import pandas as pd
 import time
 from PIL import Image
 import matplotlib.pyplot as plt
-
+import cv2
 
 import SessionState
 
@@ -14,20 +14,15 @@ import SessionState
 import tensorflow as tf
 
 
+interpreter = tf.lite.Interpreter(model_path="plain2model.tflite")
+interpreter.allocate_tensors()
 
+# Get input and output tensors.
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
 
-
-@st.cache(allow_output_mutation=True)
-def load_models():
-	interpreter = tf.lite.Interpreter(model_path="plain2model.tflite")
-	interpreter.allocate_tensors()
-	model = tf.keras.models.load_model('200_epoch_97_87_soft.h5', compile=False)
- 
-	return interpreter, model
-
-
-interpreter, model = load_models()
-
+#model = tf.keras.models.load_model('200_epoch_96_87.h5')
+model = tf.keras.models.load_model('200_epoch_97_87_soft.h5')
 class_names = ['interveinal', 'margin', 'normal', 'spotty', 'tip']
 rice_nitro_names = ['swap1','swap2','swap3','swap4']
 
@@ -67,6 +62,9 @@ def homepage():
     session_state.analysis = ''
     session_state.rice_nitro_analysis = ''
     session_state.deficiency = []
+    #fertilizer_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
+    #print(fertilizer_df.columns)
+    #st.dataframe(fertilizer_df)
 
 
 def schedule():
@@ -77,27 +75,47 @@ def schedule():
     schedule_button = st.button('Get schedule', key='schedule')
     if(schedule_button):
         if(session_state.deficiency):
-            for defi in session_state.deficiency:
-                show_table(land_value,growth_value,crop_value,defi)
+            #for defi in session_state.deficiency:
+            show_table(land_value,growth_value,crop_value,defi=1)
 
         else:
             show_table(land_value,growth_value,crop_value,0)
             st.write('To get customized recommendations go to "leaf analysis" and "leaf analysis result" page')
 
 
-def show_table(land_value,growth_value,crop_value, defi=0):
+def show_table(land_value=0,growth_value='',crop_value='', defi=0):
     # TODO: fetch rows from datafram matching criteria/calculate for particular case
-    fertilizer_df = pd.read_excel(r'fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
+    fertilizer_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='fertilizer',  engine="openpyxl")
+
+    schedule_df = pd.read_excel(r'd:\Documents\BE\PBL\8_sem\fertilizer.xlsx', sheet_name='schedule',  engine="openpyxl")
+
     if(defi==0):
         st.write('List of Fertilizers for different nutrient deficiencies: ')
         st.write(fertilizer_df)
+        if(crop_value!=''):
+            sub_df = schedule_df.loc[schedule_df['crop']==crop_value]
+            if(growth_value !=''):
+                sub_df = sub_df.loc[sub_df['age']==growth_value]
+            if(land_value!=0):
+                quant = sub_df['quantity_acre']
+                st.write('Quantity to be applied for selected land size:')
+                sub_df['quantity to apply (kg)'] = [float(i)*float(land_value) for i in list(quant)]
+
+            st.write(sub_df)
 
     else:
         st.write(f'You have selected: {land_value} acres, {crop_value} which is in {growth_value} stage.')
         st.write("Recommended fertilizer for: ", session_state.deficiency)
         all_nutrients = list(fertilizer_df['nutrient'])
-        for nutri in session_state.deficiency:
-            st.write(fertilizer_df.loc[fertilizer_df['nutrient']==nutri])
+        of_intrest = schedule_df[(schedule_df['age']==growth_value) & (schedule_df['crop']==crop_value)]
+        #for nutri in session_state.deficiency:
+        temp_df = fertilizer_df.loc[fertilizer_df['nutrient'].isin(session_state.deficiency)]
+        #st.write()
+        kg_per_acre = of_intrest[of_intrest['nutrient'].isin(session_state.deficiency)]['quantity_acre']
+        print('kg: ', kg_per_acre)
+        print("_________________________",list(kg_per_acre*land_value))
+        temp_df['quantity to apply (kg):'] = list(kg_per_acre*land_value)
+        st.write(temp_df)
 
 def load_image(image_file):
 	img = Image.open(image_file)
@@ -114,6 +132,9 @@ def health_v2():
     crop_value = st.selectbox('Select crop', ['rice','maize','wheat'])
 
     st.write('Upload image of affected leaf with white background')
+    st.write('Example: ')
+    img0 = load_image('app_img_ex/maize4.JPG')
+    st.image(img0,width=200)
     leaf_img = st.file_uploader('Upload leaf image', type=['png','jpeg','jpg'])
 
     diagnoise_button = st.button('Get diagnosis', key='diagnosis')
@@ -153,14 +174,25 @@ def result():
         st.write(f"Nitrogen deficiency level for rice leaf: **{session_state.rice_nitro_analysis}**")
         st.write("Confidence: ",session_state.rice_nitro_analysis_perc)
     if(session_state.analysis != ''):
-        col1, col2 = st.beta_columns(2)
+
+        col1, col2, col3 = st.beta_columns(3)
         symptoms = []
 
         session_state.stunted = col1.checkbox('stunted growth?')
-        session_state.dead_spot = col1.checkbox('Red/Dead spots?')
+        img2 = load_image('app_img_ex/stunted_rice1.JPG')
+        col1.image(img2,width=200)
 
-        session_state.twisted = col2.checkbox('Twisted/Brittle leaves?')
-        session_state.yellow = col2.checkbox('General yellowing of new leaves?')
+        session_state.dead_spot = col1.checkbox('Red/Dead spots?')
+        img3 = load_image('app_img_ex/red_maize.PNG')
+        col1.image(img3,width=200)
+
+        session_state.twisted = col3.checkbox('Twisted/Brittle leaves?')
+        img5 = load_image('app_img_ex/twisted.PNG')
+        col3.image(img5,width=200)
+
+        session_state.yellow = col3.checkbox('General yellowing of new leaves?')
+        img6 = load_image('app_img_ex/yellow_rice.JPG')
+        col3.image(img6,width=200)
 
         if session_state.stunted:
             symptoms.append('stunted')
@@ -225,10 +257,6 @@ def nitro_rice():
     leaf_img = st.file_uploader('Upload leaf image', type=['png','jpeg','jpg'])
 
     diagnoise_button = st.button('Get diagnosis', key='diagnosis')
-# Get input and output tensors.
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
-
     if(diagnoise_button):
         session_state.diagnoise_button = True
 
