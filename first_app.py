@@ -4,7 +4,7 @@ import pandas as pd
 import time
 from PIL import Image
 import matplotlib.pyplot as plt
-import cv2
+
 
 import SessionState
 
